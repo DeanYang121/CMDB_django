@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% block title %}nginx配置文件修改{% endblock %}
+{% block link %}
+<script type="text/javascript" src="/static/vendor/syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+<script type="text/javascript" src="/static/vendor/syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<link type="text/css" rel="stylesheet" href="/static/vendor/syntaxhighlighter_3.0.83/styles/shCoreDefault.css"/>
+<link rel="stylesheet" href="/static/kindeditor-4.1.7/themes/default/default.css" />
+<script charset="utf-8" src="/static/kindeditor-4.1.7/kindeditor-min.js"></script>
+<script charset="utf-8" src="/static/kindeditor-4.1.7/lang/zh_CN.js"></script>
+<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+</style>
+<script type="text/javascript">
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					allowFileManager : true
+				});
+				K('input[name=getText]').click(function(e) {
+				    //console.log(editor.text())
+					//alert(editor.text());
+					function post(URL, PARAMS) {
+                      var temp = document.createElement("form");
+                      temp.action = URL;
+                      temp.method = "post";
+                      temp.style.display = "none";
+                      for (var x in PARAMS) {
+                        var opt = document.createElement("textarea");
+                        opt.name = x;
+                        opt.value = PARAMS[x];
+                        // alert(opt.name)
+                        temp.appendChild(opt);
+                      }
+                      document.body.appendChild(temp);
+                      temp.submit();
+                      return temp;
+                    }
+					post('/modify/',{"nginx":editor.text()});
+				});
+				K('input[name=clear]').click(function(e) {
+					editor.html('');
+				});
+			});
+</script>
+
+{% endblock %}
+{% block main%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            nginx配置文件修改
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>nginx配置文件修改</a></li>
+            <li class="active">配置管理</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>nginx.conf</h1>
+                    <pre id="nginx" class="brush: js;" >
+                        {{content}}
+                    </pre>
+                <div class="col-md-3 col-md-offset-9">
+                    <span class="input-group-btn">
+                        <button type="submit" id="nginx_edit" class="btn btn-primary btn-flat">编辑文件</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-md-12 col-md-offset-1">
+		<h3>配置文件修改</h3>
+		<form>
+			<textarea name="content" id="11111" style="width:800px;height:400px;visibility:hidden;">{{content}}</textarea>
+			<p>
+				<input type="button" name="getText" value="提交修改" />
+				<br />
+				<br />
+				<input type="button" name="clear" value="清空内容" />
+				<input type="reset" name="reset" value="Reset" />
+			</p>
+		</form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block js %}
+
+$(document).ready(function(){
+
+
+    jQuery('#nginx_commit').on('click',function(){
+    var params = {};
+    params["nginx"] = jQuery("#11111").text()
+    //console.log(jQuery("#11111").text())
+    //alert(jQuery("#nginx").text())
+    jQuery.post('/modify/',params,function(data){
+        if(data['is_ok']){
+            alert('修改成功！');
+            window.location.reload();
+                }else{
+                    alert(data['error']);
+                }
+        },
+        'json'
+        );
+    });
+
+    jQuery('#nginx_edit').on('click',function(){
+        jQuery('#contenteditable').attr("contenteditable","true");
+    });
+
+
+});
+
+{% endblock %}

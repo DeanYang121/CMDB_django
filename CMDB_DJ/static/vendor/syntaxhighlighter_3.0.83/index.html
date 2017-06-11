@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Hello SyntaxHighlighter</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+    <link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+</head>
+<body style="background: white; font-family: Helvetica">
+<h1>高亮显示</h1>
+<div contenteditable="true">
+<pre id="nginx" class="brush: js;" >
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+		    '$status $body_bytes_sent "$http_referer"'
+		    '"$http_user_aget" "$http_x_forwarded_for"';
+    sendfile        on;
+    keepalive_timeout  65;
+    include extra/cmdb/cmdb.conf;
+    }
+</pre>
+</div>
+</body>
+<script type="text/javascript">
+	alert(document.getElementById('nginx').innerHTML);
+</script>
+</html>

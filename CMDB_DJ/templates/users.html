@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block title %}用户管理{% endblock %}
+{% block link %}
+{% endblock %}
+{% block main%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        用户管理
+        <small>平台用户管理</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>平台用户管理</a></li>
+        <li><a href="#">用户管理</a></li>
+        <li class="active">仪表盘</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header col-md-2">
+              <button type="button" class="btn btn-block btn-primary">添加用户</button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>编号id</th>
+                  <th>职位</th>
+                  <th>性别</th>
+                  <th>姓名</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 4.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/vendor/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/static/vendor/plugins/datatables/dataTables.bootstrap.min.js"></script>
+{% endblock %}
+{% block js%}
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+{% endblock %}
